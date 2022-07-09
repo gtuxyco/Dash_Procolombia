@@ -32,14 +32,23 @@ dropdowns = dbc.Col([
                 #options=[{'label': t, 'value': t} for t in test], 
                 #value = graficos.getCountries()[0],  
                 options = [{'label': t, 'value': t} for t in controlador.getCountries()],
-                
                 value = controlador.getCountries()[0],
                 clearable=False,
                 id='dropdown_country',
             ),
     ], lg=10, md=12),
     html.Br(),
-    
+    dbc.Col([
+        html.P(html.B("Elija cantidad de rezagos: ")),  
+    ]),
+    html.Br(),
+    dbc.Col([
+        dcc.Slider(0, 20, 1,
+               value=5,
+               id='slider_pais'
+    )
+    ]
+    )
     
     
 ] ,className="dropdowns")
@@ -105,12 +114,12 @@ content = html.Div(
     Output("graph_prophet", "figure"), 
     Output("influence_table_tail", "children"),
     Input("dropdown_country", "value"),
+    Input("slider_pais", "value")
     )
 
-def displayProphet(country):
+def displayProphet(country, slider):
     print("Displaying prophet")
-    rezagos = 6
-    fig,table_head, table_tail = controlador.prophet(country, rezagos)
+    fig,table_head, table_tail = controlador.prophet(country, slider)
     
     #return fig, sns.heatmap(table_head, annot=True), sns.heatmap(table_tail, annot=True)
 

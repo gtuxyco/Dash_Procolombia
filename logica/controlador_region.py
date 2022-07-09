@@ -68,7 +68,7 @@ def rezagos(final,hub,rezagos):
         
     return verificacion
 
-def tablas_actividades_destacadas(hub):
+def tablas_actividades_destacadas(hub,rez):
     ### leer los joblib del gradient
     directorio = DIRECTORY+r'/modelos/'
     contenido = os.listdir(directorio)
@@ -166,7 +166,7 @@ def tablas_actividades_destacadas(hub):
     table = table[table.variables.isin(buenos)]
     table['orden']=[a+1 for a in range(9)]
     table=table[['orden','variables']]
-    return table, resultados
+    return table
 
 def tablas_importancia_region_rezagos(hub, rez):
     ### leer los joblib del gradient
